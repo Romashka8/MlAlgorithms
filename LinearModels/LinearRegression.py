@@ -31,6 +31,8 @@ class LinearRegression(LinearModelBase):
         self.weights = self.gradient_descent(
             x=x, y=y, n_iter=self.n_iter, learning_rate=self.learning_rate, sgd_sample=self.sgd_sample, verbose=verbose,
             random_state=self.random_state, metric=self.metric)
+        y_pred = np.dot(x, self.weights)
+        self.best_metric = self.metric.calc(y_pred, y)
 
     # return our weights(except first cause it match a free coef)
     def get_coef(self) -> np.array:
@@ -80,6 +82,8 @@ class LinearRegressionL1(LinearRegression):
         self.weights = self.gradient_descent(
             x=x, y=y, n_iter=self.n_iter, learning_rate=self.learning_rate, sgd_sample=self.sgd_sample, verbose=verbose,
             random_state=self.random_state, metric=self.metric, reg='l1', l1_coef=self.l1_coef)
+        y_pred = np.dot(x, self.weights)
+        self.best_metric = self.metric.calc(y_pred, y)
 
 
 class LinearRegressionL2(LinearRegression):
@@ -109,11 +113,14 @@ class LinearRegressionL2(LinearRegression):
         self.weights = self.gradient_descent(
             x=x, y=y, n_iter=self.n_iter, learning_rate=self.learning_rate, sgd_sample=self.sgd_sample, verbose=verbose,
             random_state=self.random_state, metric=self.metric, reg='l2', l2_coef=self.l2_coef)
+        y_pred = np.dot(x, self.weights)
+        self.best_metric = self.metric.calc(y_pred, y)
 
 
 class LinearRegressionElasticNet(LinearRegression):
     def __init__(self, n_iter: int = 100, learning_rate: Union[float, Callable] = 0.1, metric: BaseMetric = lm.MSE(),
-                 l1_coef: float = 0.1, l2_coef: float = 0.1, sgd_sample: Union[int, float] = None, random_state: int = 42):
+                 l1_coef: float = 0.1, l2_coef: float = 0.1, sgd_sample: Union[int, float] = None,
+                 random_state: int = 42):
         """
         :param l1_coef: coefficient in L1 regularisation
         :type: float
@@ -143,3 +150,5 @@ class LinearRegressionElasticNet(LinearRegression):
             x=x, y=y, n_iter=self.n_iter, learning_rate=self.learning_rate, sgd_sample=self.sgd_sample, verbose=verbose,
             random_state=self.random_state, metric=self.metric, reg='elasticnet', l1_coef=self.l1_coef,
             l2_coef=self.l2_coef)
+        y_pred = np.dot(x, self.weights)
+        self.best_metric = self.metric.calc(y_pred, y)
