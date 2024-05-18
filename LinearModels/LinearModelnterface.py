@@ -36,15 +36,17 @@ class LinearModelBase(abc.ABC):
         pass
 
     # Gradient Descent Algorithm realisation
-    # Using in .fit() in child classes
+    # Using in .fit() in child classes(LinearRegression Models)
     # reg can be only ('l1', 'l2', 'elasticnet')
     # Other parameters described in __init__
+    # This gradient descent using in Regression
     @staticmethod
     def gradient_descent(x: pd.DataFrame, y: pd.Series, n_iter: int, learning_rate: Union[float, Callable],
                          sgd_sample: Union[int, float], verbose: int, metric, random_state: int, reg: str = None,
                          l1_coef: float = None, l2_coef: float = None) -> np.array:
         # fixing random seed
         random.seed(random_state)
+        # adding free coef column
         x.insert(0, 'free_coef', [1] * x.shape[0])
         x, y = x.to_numpy(), y.to_numpy()
         n, n_features = x.shape[0], x.shape[1]
@@ -89,6 +91,69 @@ class LinearModelBase(abc.ABC):
                 calc_metric = metric.calc(y_pred, y)
                 output += f'|{metric.name}:{calc_metric}'
                 print(output)
+        return weights_init
+
+    #
+    @staticmethod
+    def gradient_descent_logistic(x: pd.DataFrame, y: pd.Series, n_iter: int, learning_rate: Union[float, Callable],
+                         sgd_sample: Union[int, float], verbose: int, metric, random_state: int, reg: str = None,
+                         l1_coef: float = None, l2_coef: float = None) -> np.array:
+        # fixing random seed
+        random.seed(random_state)
+        # adding free coef column
+        x.insert(0, 'free_coef', np.ones(x.shape[0]))
+        x, y = x.to_numpy(), y.to_numpy()
+        n, n_features = x.shape[0], x.shape[1]
+        weights_init = np.ones(n_features)
+        for i in range(n_iter):
+            # predict probabilitys using sigmoida
+            y_pred = 1 / (1 + np.exp(-np.dot(x, weights_init)))
+            # calculating log loss
+            # defending us from 0 in log
+            if reg:
+                if reg == 'l1':
+                    reg = l1_coef * abs(weights_init).sum()
+                    reg_grad = l1_coef * np.sign(weights_init)
+                elif reg == 'l2':
+                    reg = l2_coef * (weights_init ** 2).sum()
+                    reg_grad = l2_coef * 2 * weights_init
+                elif reg == 'elasticnet':
+                    reg = l1_coef * abs(weights_init).sum() + l2_coef * (weights_init ** 2).sum()
+                    reg_grad = l1_coef * np.sign(weights_init) + l2_coef * 2 * weights_init
+            else:
+                reg, reg_grad = 0, 0
+            eps = 1e-15
+            loss = (y * np.log(y_pred + eps) + (1 - y) * np.log(1 - y_pred + eps)).sum() / -n + reg
+            if sgd_sample:
+                if isinstance(sgd_sample, int):
+                    sample_rows_idx = random.sample(range(x.shape[0]), sgd_sample)
+                else:
+                    sample_rows_idx = random.sample(range(x.shape[0]), int(np.round(sgd_sample * x.shape[0])))
+                grad = np.dot((y_pred - y)[sample_rows_idx], x[sample_rows_idx]) / len(sample_rows_idx) + reg_grad
+            else:
+                grad = np.dot((y_pred - y), x) / n + reg_grad
+            if isinstance(learning_rate, float):
+                weights_init -= learning_rate * grad
+            else:
+                # in dynamic learning_rate change steps numeration
+                weights_init -= learning_rate(i + 1) * grad
+            # loss and metric output in learning process
+            if verbose and i % verbose == 0:
+                output = ''
+                if i == 0:
+                    output = f'start|loss: {loss}'
+                else:
+                    output = f'{i}|loss: {loss}'
+                if metric.name != 'roc_auc':
+                    y_pred[y_pred > 0.5], y_pred[y_pred <= 0.5] = 1, 0
+                calc_metric = metric.calc(y_pred, y)
+                output += f'|{metric.name}:{calc_metric}'
+                print(output)
+        # y_pred = 1 / (1 + np.exp(-np.dot(x, weights_init)))
+        # if metric:
+        #     if metric != 'roc_auc':
+        #         y_pred[y_pred > 0.5], y_pred[y_pred <= 0.5] = 1, 0
+        #     best_metric = metrics[metric].calc(y_pred, y)
         return weights_init
 
     # implemented in child classes.
