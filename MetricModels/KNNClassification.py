@@ -26,6 +26,8 @@ class KNNClassification(MetricModelnterface.MetricModelBase):
             elif self.metric == 'cosine':
                 distances = 1 - np.sum(used_metric(x.iloc[i], x_train), axis=1) / (
                             np.sqrt(np.sum(x.iloc[i] ** 2)) * np.sqrt(np.sum(x_train ** 2, axis=1)))
+            elif self.metric == 'euclidean':
+                distances = np.sqrt(np.sum(used_metric(x.iloc[i], x_train), axis=1))
             else:
                 # finding for each object in test data distance for object in train data
                 # in metric func we do not sum, for this reason we use sum here
@@ -73,6 +75,8 @@ class KNNClassification(MetricModelnterface.MetricModelBase):
             elif self.metric == 'cosine':
                 distances = 1 - np.sum(used_metric(x.iloc[i], x_train), axis=1) / (
                             np.sqrt(np.sum(x.iloc[i] ** 2)) * np.sqrt(np.sum(x_train ** 2, axis=1)))
+            elif self.metric == 'euclidean':
+                distances = np.sqrt(np.sum(used_metric(x.iloc[i], x_train), axis=1))
             else:
                 distances = np.sum(used_metric(x.iloc[i], x_train), axis=1)
             indexes = np.arange(0, self.train_size[0])
