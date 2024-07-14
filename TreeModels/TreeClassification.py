@@ -12,7 +12,7 @@ class TreeClassificator(TreeModelInterface.TreeModelInterface):
         super().__init__(max_depth, min_samples_split, max_leafs, bins)
         self.criterion = criterion if criterion in ('entropy', 'gini') else 'entropy'
 
-    def __str__(self):
+    def __repr__(self):
         # getting dict() of all attributes
         atr = self.__dict__
         res = ''.join([i + '=' + str(atr[i]) + ',' + ' ' for i in atr])[:-2]
