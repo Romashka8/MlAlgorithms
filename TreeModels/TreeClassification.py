@@ -49,7 +49,7 @@ class TreeClassificator(TreeModelInterface.TreeModelInterface):
                 # unique feature values
                 vals = np.sort(x[column].unique())
                 if self.bins is not None and len(vals) - 1 >= self.bins:
-                    spliters = np.histogram(x[column], bins=self.bins)[1]
+                    spliters = np.histogram(x[column], bins=self.bins)[1][1:-1]
                 else:
                     spliters = np.convolve(vals, [0.5, 0.5], 'valid')
                 self.split_values[column] = spliters
