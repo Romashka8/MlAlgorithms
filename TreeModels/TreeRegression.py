@@ -25,7 +25,7 @@ class TreeRegression(TreeModelInterface.TreeModelInterface):
         return mse / y.shape[0] if y.shape[0] != 0 else 0
 
     def __get_best_split(self, x: pd.DataFrame, y: pd.Series) -> (str, float, float):
-        if x.shape[0] != y.shape[0]: raise ValueError("X and y must be the same size")
+        if x.shape[0] != y.shape[0]: raise ValueError("x and y must be the same size")
         col_name, split_value, ig_max, ig_start = '', 0.0, 0.0, TreeRegression().__get_mse(y)
         N = y.shape[0]
         form_spliters = len(self.split_values) == 0

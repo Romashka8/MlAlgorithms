@@ -39,7 +39,7 @@ class TreeClassificator(TreeModelInterface.TreeModelInterface):
 
     def __get_best_split(self, x: pd.DataFrame, y: pd.Series) -> (str, float, float):
         if x.shape[0] != y.shape[0]:
-            raise ValueError("X and y must be the same size")
+            raise ValueError("x and y must be the same size")
         col_name, split_value, ig_max = '', 0.0, 0.0
         ig_start = TreeClassificator().__get_entropy(y) if self.criterion == 'entropy' else TreeClassificator.__get_gini(y)
         N = y.shape[0]
