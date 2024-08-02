@@ -21,7 +21,7 @@ class LogisticRegression(LinearModelBase):
     def __repr__(self):
         atr = self.__dict__
         res = ''.join([i + '=' + str(atr[i]) + ',' + ' ' for i in atr])[:-2]
-        return 'MyLogReg class: ' + res
+        return 'LogisticRegression class: ' + res
 
     def fit(self, x: pd.DataFrame, y: pd.Series, verbose: int = False) -> None:
         x = x.copy()

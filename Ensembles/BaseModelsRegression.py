@@ -114,7 +114,7 @@ class LinearRegression:
         return "LinearRegression class: " + ", ".join(params)
 
 
-class MyKNNReg:
+class KNNRegression:
     def __init__(self, k: int = 3, metric: str = 'euclidean', weight: str = 'uniform'):
         self.k = k
         self.train_size = None
@@ -166,7 +166,7 @@ class Node:
         self.right = None
 
 
-class MyTreeReg:
+class TreeRegression:
     def __init__(self, max_depth: int = 5, min_samples_split: int = 2, max_leafs: int = 20,
                  bins: Optional[int] = None):
         self.max_depth = max_depth
@@ -285,4 +285,4 @@ class MyTreeReg:
         return ((t - t_mean) ** 2).mean()
 
     def __str__(self):
-        return f"MyTreeReg class: max_depth={self.max_depth}, min_samples_split={self.min_samples_split}, max_leafs={self.max_leafs}"
+        return f"TreeRegression class: max_depth={self.max_depth}, min_samples_split={self.min_samples_split}, max_leafs={self.max_leafs}"

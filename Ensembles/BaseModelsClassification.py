@@ -70,7 +70,7 @@ class TableMetrics:
         return sqr / m
 
 
-class MyLogReg:
+class LogisticRegression:
     def __init__(self,
                  n_iter: int = 10,
                  learning_rate: float | Callable = 0.1,
@@ -161,10 +161,10 @@ class MyLogReg:
         return 1 / (1 + np.exp(-z))
 
     def __str__(self):
-        return f"MyLogReg class: n_iter={self.n_iter}, learning_rate={self.learning_rate}"
+        return f"LogisticRegression class: n_iter={self.n_iter}, learning_rate={self.learning_rate}"
 
 
-class MyKNNClf:
+class KNNClassificator:
     def __init__(self, k: int = 3, metric: str = 'euclidean', weight: str = 'uniform'):
         self.k = k
         self.metric = metric
@@ -248,7 +248,7 @@ class Node:
         self.right = None
 
 
-class MyTreeClf:
+class TreeClassificator:
     def __init__(self, max_depth: int = 5, min_samples_split: int = 2, max_leafs: int = 20,
                  bins: Optional[int] = None, criterion: str = 'entropy'):
         self.max_depth = max_depth
@@ -383,4 +383,4 @@ class MyTreeClf:
             return 1 - np.sum(p ** 2)
 
     def __str__(self):
-        return f"MyTreeClf class: max_depth={self.max_depth}, min_samples_split={self.min_samples_split}, max_leafs={self.max_leafs}, bins={self.bins}"
+        return f"TreeClassificator class: max_depth={self.max_depth}, min_samples_split={self.min_samples_split}, max_leafs={self.max_leafs}, bins={self.bins}"
