@@ -262,7 +262,9 @@ class TreeClassificator:
         self.fi = {}
         self.tree = None
 
-    def fit(self, x: pd.DataFrame, y: pd.Series) -> None:
+    def fit(self, x: pd.DataFrame, y: pd.Series, y_size: Optional[int] = None) -> None:
+        if y_size is None:
+            y_size = len(y)
         self.fi = {col: 0 for col in x.columns}
 
         def create_tree(root, x_root, y_root, side='root', depth=0):
@@ -280,7 +282,7 @@ class TreeClassificator:
                 self.__sum_tree_values += root.value_leaf
                 return root
 
-            self.fi[col_name] += len(y_root) / len(y) * ig
+            self.fi[col_name] += len(y_root) / y_size * ig
 
             x_left = x_root.loc[x_root[col_name] <= split_value]
             y_left = y_root.loc[x_root[col_name] <= split_value]

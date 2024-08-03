@@ -56,7 +56,7 @@ class BaggingRegression:
             base_model = copy.copy(self.estimator)
             base_model.fit(x_sample, y_sample)
 
-            oob_preds = base_model.predict(x_oob, )
+            oob_preds = base_model.predict(x_oob)
             for i, pred in zip(y.drop(index=sample_rows_idx).index, oob_preds):
                 oob_preds_dict.setdefault(i, []).append(pred)
 
@@ -71,7 +71,7 @@ class BaggingRegression:
         y_preds = []
         print(self.estimators[0])
         for estimator in self.estimators:
-            y_pred = estimator.predict(x, )
+            y_pred = estimator.predict(x)
             y_preds.append(y_pred)
         return np.array(y_preds).mean(axis=0)
 

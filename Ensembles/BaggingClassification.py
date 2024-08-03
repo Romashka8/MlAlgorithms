@@ -51,7 +51,7 @@ class BaggingClassification:
             base_model = copy.copy(self.estimator)
             base_model.fit(x_sample, y_sample)
 
-            oob_preds = base_model.predict(x_oob, )
+            oob_preds = base_model.predict(x_oob)
             for i, pred in zip(y.drop(index=sample_rows_idx).index, oob_preds):
                 oob_preds_dict.setdefault(i, []).append(pred)
 

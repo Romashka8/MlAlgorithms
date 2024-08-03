@@ -178,7 +178,11 @@ class TreeRegression:
         self.split_values = {}
         self.tree = None
 
-    def fit(self, x: pd.DataFrame, y: pd.Series) -> None:
+    def fit(self, x: pd.DataFrame, y: pd.Series, y_size: Optional[int] = None):
+        if y_size is None:
+            y_size = len(y)
+        self.tree = None
+        self.split_values = {}
         self.fi = {col: 0 for col in x.columns}
 
         def create_tree(root, x_root, y_root, side='root', depth=0):
@@ -195,7 +199,7 @@ class TreeRegression:
 
             col_name, split_value, gain = self.get_best_split(x_root, y_root)
 
-            self.fi[col_name] += gain * len(y_root) / len(y)
+            self.fi[col_name] += gain * len(y_root) / y_size
 
             x_left = x_root[x_root[col_name] <= split_value]
             y_left = y_root[x_root[col_name] <= split_value]
