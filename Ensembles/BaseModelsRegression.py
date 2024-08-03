@@ -235,6 +235,21 @@ class TreeRegression:
             y_pred.append(node.value_leaf)
         return np.array(y_pred)
 
+    def grad(self, X):
+        grad_pred = {}
+        for index, row in X.iterrows():
+            node = self.tree
+            while node.feature:
+                if row[node.feature] <= node.value_split:
+                    node = node.left
+                else:
+                    node = node.right
+            if node in grad_pred:
+                grad_pred[node].append(index)
+            else:
+                grad_pred[node] = [index]
+        return grad_pred
+
     def print_tree(self, node: Optional[Node] = None, depth: int = 0) -> None:
         if node is None:
             node = self.tree
