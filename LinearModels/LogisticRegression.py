@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 
@@ -5,6 +7,7 @@ from LinearModelnterface import LinearModelBase, UnfittedModel, BaseMetric
 import LinearMetrics as lm
 from typing import Union, Callable
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LogisticRegression(LinearModelBase):
     def __init__(self, n_iter: int = 100, learning_rate: Union[float, Callable] = 0.1,
@@ -64,6 +67,7 @@ class LogisticRegression(LinearModelBase):
     def score(self, y_pred: np.array, y: np.array) -> float:
         return lm.RocAuc().calc(y_pred, y)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LogisticRegressionL1(LogisticRegression):
     def __init__(self, n_iter: int = 100, learning_rate: Union[float, Callable] = 0.1,
@@ -98,6 +102,7 @@ class LogisticRegressionL1(LogisticRegression):
             y_pred[y_pred > 0.5], y_pred[y_pred <= 0.5] = 1, 0
         self.best_metric = self.metric.calc(y_pred, y)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LogisticRegressionL2(LogisticRegression):
     def __init__(self, n_iter: int = 100, learning_rate: Union[float, Callable] = 0.1,
@@ -132,6 +137,7 @@ class LogisticRegressionL2(LogisticRegression):
             y_pred[y_pred > 0.5], y_pred[y_pred <= 0.5] = 1, 0
         self.best_metric = self.metric.calc(y_pred, y)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LogisticRegressionElasticNet(LogisticRegression):
     def __init__(self, n_iter: int = 100, learning_rate: Union[float, Callable] = 0.1,
@@ -171,3 +177,5 @@ class LogisticRegressionElasticNet(LogisticRegression):
         if self.metric.name != 'roc_auc':
             y_pred[y_pred > 0.5], y_pred[y_pred <= 0.5] = 1, 0
         self.best_metric = self.metric.calc(y_pred, y)
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
