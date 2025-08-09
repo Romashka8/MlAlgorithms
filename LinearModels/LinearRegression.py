@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 import random
@@ -6,6 +8,7 @@ from LinearModelnterface import LinearModelBase, UnfittedModel, BaseMetric
 import LinearMetrics as lm
 from typing import Union, Callable
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LinearRegression(LinearModelBase):
 
@@ -54,6 +57,7 @@ class LinearRegression(LinearModelBase):
     def score(self, y_pred: np.array, y: np.array) -> float:
         return lm.R2().calc(y_pred, y)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LinearRegressionL1(LinearRegression):
     def __init__(self, n_iter: int = 100, learning_rate: Union[float, Callable] = 0.1, metric: BaseMetric = lm.MSE(),
@@ -85,6 +89,7 @@ class LinearRegressionL1(LinearRegression):
         y_pred = np.dot(x, self.weights)
         self.best_metric = self.metric.calc(y_pred, y)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LinearRegressionL2(LinearRegression):
     def __init__(self, n_iter: int = 100, learning_rate: Union[float, Callable] = 0.1, metric: BaseMetric = lm.MSE(),
@@ -116,6 +121,7 @@ class LinearRegressionL2(LinearRegression):
         y_pred = np.dot(x, self.weights)
         self.best_metric = self.metric.calc(y_pred, y)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LinearRegressionElasticNet(LinearRegression):
     def __init__(self, n_iter: int = 100, learning_rate: Union[float, Callable] = 0.1, metric: BaseMetric = lm.MSE(),
@@ -152,3 +158,5 @@ class LinearRegressionElasticNet(LinearRegression):
             l2_coef=self.l2_coef)
         y_pred = np.dot(x, self.weights)
         self.best_metric = self.metric.calc(y_pred, y)
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
