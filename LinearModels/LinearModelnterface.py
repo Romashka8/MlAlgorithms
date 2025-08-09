@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import abc
 import random
 from typing import Union, Callable
@@ -5,6 +7,7 @@ from typing import Union, Callable
 import pandas as pd
 import numpy as np
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 # Base class of a Linear Model
 class LinearModelBase(abc.ABC):
@@ -51,6 +54,7 @@ class LinearModelBase(abc.ABC):
         x, y = x.to_numpy(), y.to_numpy()
         n, n_features = x.shape[0], x.shape[1]
         weights_init = np.ones(n_features)
+
         for i in range(n_iter):
             y_pred = np.dot(x, weights_init)
             # adding regularisation
@@ -91,9 +95,9 @@ class LinearModelBase(abc.ABC):
                 calc_metric = metric.calc(y_pred, y)
                 output += f'|{metric.name}:{calc_metric}'
                 print(output)
+
         return weights_init
 
-    #
     @staticmethod
     def gradient_descent_logistic(x: pd.DataFrame, y: pd.Series, n_iter: int, learning_rate: Union[float, Callable],
                          sgd_sample: Union[int, float], verbose: int, metric, random_state: int, reg: str = None,
@@ -212,15 +216,18 @@ class LinearModelBase(abc.ABC):
         """
         pass
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 # to prevent predict in unfitted models
 class UnfittedModel(BaseException):
     def __str__(self):
         return 'Model must be fitted first!'
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 # we will represent our metrics as child classes of BaseMetric
 class BaseMetric(abc.ABC):
+    
     @staticmethod
     @abc.abstractmethod
     def calc(y_pred: np.array, y: np.array) -> float:
@@ -232,3 +239,5 @@ class BaseMetric(abc.ABC):
         :return: float - metric score
         """
         pass
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
