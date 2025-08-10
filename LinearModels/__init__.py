@@ -1,3 +1,8 @@
-import LinearModels.LinearModelnterface
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
+import LinearModels.LogisticRegression
 import LinearModels.LinearRegression
+
 import LinearModels.LinearMetrics
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
