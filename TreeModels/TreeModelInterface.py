@@ -1,9 +1,12 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import abc
 import pandas as pd
 import numpy as np
 
 from typing import Optional, Any
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 # make class for Tree structure
 class Node:
@@ -15,16 +18,19 @@ class Node:
         :param left: left subtree
         :param right: right subtree
         """
+
         self.column = column
         self.value = value
         self.left = left
         self.right = right
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class UnfittedModel(BaseException):
     def __str__(self):
         return 'Model must be fitted first!'
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class TreeModelInterface(abc.ABC):
     # can be extended in child classes
@@ -60,14 +66,17 @@ class TreeModelInterface(abc.ABC):
 
     # using for tree output
     def tree_traversal(self, tree: Node = None, depth: int = 0, side: str = 'left'):
+        
         if tree is None:
             tree = self.tree_structure
+        
         if tree.column is not None:
             print(f"{' ' * depth}{tree.column} > {tree.value}")
             if tree.left is not None:
                 self.tree_traversal(tree.left, depth + 1, 'left')
             if tree.right is not None:
                 self.tree_traversal(tree.right, depth + 1, 'right')
+        
         else:
             print(f"{' ' * depth}{side} leaf = {tree.value}")
 
@@ -80,3 +89,5 @@ class TreeModelInterface(abc.ABC):
     @abc.abstractmethod
     def predict(self, x: pd.DataFrame) -> np.array:
         pass
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
