@@ -1,3 +1,7 @@
-import KMeans
-import HierarchicalAgglomerative
-import DBScan
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
+import Clustering.KMeans
+import Clustering.HierarchicalAgglomerative
+import Clustering.DBScan
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
