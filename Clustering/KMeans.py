@@ -1,6 +1,9 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class KMeans:
     def __init__(self, n_clusters: int = 3, max_iter: int = 10, n_init: int = 3, random_state: int = 42):
@@ -12,8 +15,10 @@ class KMeans:
         self.inertia_ = None
 
     def __repr__(self):
+        
         atr = self.__dict__
         res = ''.join([i + '=' + str(atr[i]) + ',' + ' ' for i in atr])[:-2]
+        
         return 'KMeans class: ' + res
 
     def fit(self, x: pd.DataFrame) -> None:
@@ -32,6 +37,7 @@ class KMeans:
 
             for _ in range(self.max_iter):
                 y_pred = []
+                
                 for _, row in x.iterrows():
                     row = row.values
                     # argmin return index - this means for us that we get a cluster!
@@ -60,8 +66,12 @@ class KMeans:
 
     def predict(self, x: pd.DataFrame) -> np.array:
         y_pred = []
+        
         for _, row in x.iterrows():
             row = row.values
             y_pred.append(np.argmin(np.array([self.euclidean(row, cluster) \
                                               for cluster in self.cluster_centers_])))
+        
         return y_pred
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
