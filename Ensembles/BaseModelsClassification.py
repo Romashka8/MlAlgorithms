@@ -1,9 +1,12 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 
 from typing import Optional, Callable
 import random
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class TableMetrics:
     def __init__(self, y_true: np.array | list, y_pred_proba: np.array | list, metric: str):
@@ -69,6 +72,7 @@ class TableMetrics:
                 n_zeroes -= 1
         return sqr / m
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LogisticRegression:
     def __init__(self,
@@ -163,6 +167,7 @@ class LogisticRegression:
     def __str__(self):
         return f"LogisticRegression class: n_iter={self.n_iter}, learning_rate={self.learning_rate}"
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class KNNClassificator:
     def __init__(self, k: int = 3, metric: str = 'euclidean', weight: str = 'uniform'):
@@ -237,6 +242,7 @@ class KNNClassificator:
             probabilities.append(prob_class_1)
         return np.array(probabilities)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class Node:
     def __init__(self):
@@ -386,3 +392,5 @@ class TreeClassificator:
 
     def __str__(self):
         return f"TreeClassificator class: max_depth={self.max_depth}, min_samples_split={self.min_samples_split}, max_leafs={self.max_leafs}, bins={self.bins}"
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
