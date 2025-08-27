@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 
@@ -8,6 +10,7 @@ import copy
 
 from typing import Optional
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class BaggingClassification:
     def __init__(self, estimator=None, n_estimators: int = 10, max_samples: float = 1.0,
@@ -79,3 +82,5 @@ class BaggingClassification:
     def __str__(self):
         params = [f"{key}={value}" for key, value in self.__dict__.items()]
         return "MyBaggingClf class: " + ", ".join(params)
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
