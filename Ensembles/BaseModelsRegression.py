@@ -1,13 +1,18 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 
 from typing import Optional, Callable
 import random
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 '''
 This module represents base models, adapted for ensembles
 '''
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class LinearRegression:
     def __init__(self,
@@ -113,6 +118,7 @@ class LinearRegression:
         params = [f"{key}={value}" for key, value in self.__dict__.items()]
         return "LinearRegression class: " + ", ".join(params)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class KNNRegression:
     def __init__(self, k: int = 3, metric: str = 'euclidean', weight: str = 'uniform'):
@@ -155,6 +161,7 @@ class KNNRegression:
                 predictions.append(np.mean(k_nearest_labels))
         return np.array(predictions)
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class Node:
     def __init__(self):
@@ -305,3 +312,5 @@ class TreeRegression:
 
     def __str__(self):
         return f"TreeRegression class: max_depth={self.max_depth}, min_samples_split={self.min_samples_split}, max_leafs={self.max_leafs}"
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
