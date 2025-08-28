@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 
@@ -5,6 +7,7 @@ import random
 import BaseModelsClassification
 from typing import Optional
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class MyForestClf:
     def __init__(self, n_estimators: int = 10, max_features: float = 0.5, max_samples: float = 0.5,
@@ -112,3 +115,5 @@ class MyForestClf:
                 else:
                     res[vote] = 0
         return np.array(res, dtype=int)
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
