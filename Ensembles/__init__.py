@@ -7,7 +7,7 @@ import Ensembles.BaggingRegression
 import Ensembles.BaggingClassification
 
 import Ensembles.RandomForestRegression
-import Ensembles.RandomForrestClassification
+import Ensembles.RandomForestClassification
 
 import Ensembles.GradientBoostingRegression
 import Ensembles.GradientBoostingClassification
