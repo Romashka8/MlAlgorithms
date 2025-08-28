@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 import BaseModelsRegression
@@ -5,6 +7,7 @@ import BaseModelsRegression
 import random
 from typing import Optional
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class MyForestReg:
     def __init__(self, n_estimators: int = 10, max_features: float = 0.5, max_samples: float = 0.5,
@@ -91,3 +94,5 @@ class MyForestReg:
         for tree in range(1, len(self.forest)):
             res += self.forest[tree].predict(x)
         return res / self.n_estimators
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
