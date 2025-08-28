@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 
@@ -5,6 +7,7 @@ import random
 import BaseModelsRegression
 from typing import Optional, Callable
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class BoostingClassificator:
     def __init__(self, n_estimators: int = 10, learning_rate: float | callable = 0.1, max_depth: int = 5,
@@ -167,3 +170,5 @@ class BoostingClassificator:
         res = self.predict_proba(x)
         res[res <= 0.5], res[res > 0.5] = 0, 1
         return list(map(int, res))
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
