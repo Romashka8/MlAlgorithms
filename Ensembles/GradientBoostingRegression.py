@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 import numpy as np
 import pandas as pd
 
@@ -5,6 +7,7 @@ import random
 from typing import Optional
 import BaseModelsRegression
 
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 class BoostRegression:
     def __init__(self, n_estimators: int = 10, learning_rate: float | callable = 0.1, max_depth: int = 5, min_samples_split: int = 2,
@@ -113,3 +116,5 @@ class BoostRegression:
                 lr = self.learning_rate(index)
                 pred += lr * tree.predict(x)
         return pred
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
